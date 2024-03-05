@@ -226,7 +226,7 @@ class Str(str):
 
 if __name__ == '__main__':
     print(get_global_env())
-    print(env_get('GCP_PROJECT_ID'))
+    print(env_get('CLOUD_ML_PROJECT_ID'))
 
     # logger_ = Logger()
     # logger_.debug('This is a debug message')

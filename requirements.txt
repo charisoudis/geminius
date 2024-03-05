@@ -1,0 +1,9 @@
+colorlog
+google-cloud-aiplatform
+numpy
+pandas
+pillow
+pymupdf
+python-dotenv
+requests
+vertexai

@@ -1,16 +1,33 @@
-# This is a sample Python script.
+from pathlib import Path
+from client import Gemini
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# Initialize model
+gemini = Gemini()
+
+# Set data path
+data_dir = Path(__file__).parent / 'data'
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def test_google_notebook():
+    # set up prompt (can be given via input)
+    query = """Questions:
+     - What are the critical difference between various graphs for Class A Share?
+     - Which index best matches Class A share performance closely where Google is not already a part? Explain the reasoning.
+     - Identify key chart patterns for Google Class A shares.
+     - What is cost of revenues, operating expenses and net income for 2020. Do mention the percentage change
+     - What was the effect of Covid in the 2020 financial year?
+     - What are the total revenues for APAC and USA for 2021?
+     - What is deferred income taxes?
+     - How do you compute net income per share?
+     - What drove percentage change in the consolidated revenue and cost of revenue for the year 2021 and was there any effect of Covid?
+     - What is the cause of 41% increase in revenue from 2020 to 2021 and how much is dollar change?
+     """
+    # set path to PDF files
+    pdfs_dir = data_dir / 'google_test'
+    # call RAG with Gemini
+    return gemini(query, pdfs_dir, rag_top_n=10, verbose=True)
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    response = test_google_notebook()
+    print(response)
