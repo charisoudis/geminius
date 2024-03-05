@@ -412,7 +412,7 @@ def get_text_metadata_df(filepath: str, text_metadata: Dict[Union[int, str], Dic
                 )
                 final_data_text.append(data)
         return_df = pd.DataFrame(final_data_text)
-        pd.to_pickle(f'{filepath}.textdf')
+        pd.to_pickle(return_df, f'{filepath}.textdf')
     return_df = return_df.reset_index(drop=True)
     return return_df
 
@@ -449,7 +449,7 @@ def get_image_metadata_df(filepath: str, image_metadata: Dict[Union[int, str], D
                 )
                 final_data_image.append(data)
         return_df = pd.DataFrame(final_data_image).dropna()
-        pd.to_pickle(f'{filepath}.imgdf')
+        pd.to_pickle(return_df, f'{filepath}.imgdf')
     return_df = return_df.reset_index(drop=True)
     return return_df
 

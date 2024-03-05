@@ -4,3 +4,4 @@ google-cloud-sdk/
 !data/.gitkeep
 /data/*/images/*.jpeg
 /data/*/*.pdf
+/data/*/*.bak

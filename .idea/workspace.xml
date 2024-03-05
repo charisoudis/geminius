@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2b27608-e49d-47db-bba7-25ec5e733c1f" name="Changes" comment="bug fixes in paths">
+    <list default="true" id="d2b27608-e49d-47db-bba7-25ec5e733c1f" name="Changes" comment="add file-based cache to avoid too many queries">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/rag.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/rag.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -128,7 +126,7 @@
       <updated>1709639300781</updated>
       <workItem from="1709639303548" duration="2542000" />
       <workItem from="1709644476502" duration="937000" />
-      <workItem from="1709645484882" duration="10383000" />
+      <workItem from="1709645484882" duration="10704000" />
     </task>
     <task id="LOCAL-00001" summary="final commit of Gemini-based RAG">
       <option name="closed" value="true" />
@@ -146,7 +144,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709651621001</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="add file-based cache to avoid too many queries">
+      <option name="closed" value="true" />
+      <created>1709656117191</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1709656117191</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -155,7 +161,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="final commit of Gemini-based RAG" />
     <MESSAGE value="bug fixes in paths" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug fixes in paths" />
+    <MESSAGE value="add file-based cache to avoid too many queries" />
+    <option name="LAST_COMMIT_MESSAGE" value="add file-based cache to avoid too many queries" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
