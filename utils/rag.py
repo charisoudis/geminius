@@ -380,9 +380,7 @@ def get_gemini_response(
     return response
 
 
-def get_text_metadata_df(
-        filename: str, text_metadata: Dict[Union[int, str], Dict]
-) -> pd.DataFrame:
+def get_text_metadata_df(filepath: str, text_metadata: Dict[Union[int, str], Dict]) -> pd.DataFrame:
     """
     This function takes a filename and a text metadata dictionary as input,
     iterates over the text metadata dictionary and extracts the text, chunk text,
@@ -390,38 +388,36 @@ def get_text_metadata_df(
     extracted data, and returns it.
 
     Args:
-        filename: The filename of the document.
+        filepath: The absolute path to the document.
         text_metadata: A dictionary containing the text metadata for each page.
 
     Returns:
         A Pandas DataFrame with the extracted text, chunk text, and chunk embeddings for each page.
     """
-
-    final_data_text: List[Dict] = []
-
-    for key, values in text_metadata.items():
-        for chunk_number, chunk_text in values["chunked_text_dict"].items():
-            data: Dict = {}
-            data["file_name"] = filename
-            data["page_num"] = int(key) + 1
-            data["text"] = values["text"]
-            data["text_embedding_page"] = values["page_text_embeddings"][
-                "text_embedding"
-            ]
-            data["chunk_number"] = chunk_number
-            data["chunk_text"] = chunk_text
-            data["text_embedding_chunk"] = values["chunk_embeddings_dict"][chunk_number]
-
-            final_data_text.append(data)
-
-    return_df = pd.DataFrame(final_data_text)
+    if os.path.exists(f'{filepath}.textdf'):
+        return_df = pd.read_pickle(f'{filepath}.textdf')
+    else:
+        assert text_metadata is not None
+        final_data_text: List[Dict] = []
+        for key, values in text_metadata.items():
+            for chunk_number, chunk_text in values["chunked_text_dict"].items():
+                data: Dict = dict(
+                    file_name=filepath.split("/")[-1],
+                    page_num=int(key) + 1,
+                    text=values["text"],
+                    text_embedding_page=values["page_text_embeddings"]["text_embedding"],
+                    chunk_number=chunk_number,
+                    chunk_text=chunk_text,
+                    text_embedding_chunk=values["chunk_embeddings_dict"][chunk_number]
+                )
+                final_data_text.append(data)
+        return_df = pd.DataFrame(final_data_text)
+        pd.to_pickle(f'{filepath}.textdf')
     return_df = return_df.reset_index(drop=True)
     return return_df
 
 
-def get_image_metadata_df(
-        filename: str, image_metadata: Dict[Union[int, str], Dict]
-) -> pd.DataFrame:
+def get_image_metadata_df(filepath: str, image_metadata: Dict[Union[int, str], Dict]) -> pd.DataFrame:
     """
     This function takes a filename and an image metadata dictionary as input,
     iterates over the image metadata dictionary and extracts the image path,
@@ -429,38 +425,36 @@ def get_image_metadata_df(
     DataFrame with the extracted data, and returns it.
 
     Args:
-        filename: The filename of the document.
+        filepath: The absolute path to the document.
         image_metadata: A dictionary containing the image metadata for each page.
 
     Returns:
         A Pandas DataFrame with the extracted image path, image description, and image embeddings for each image.
     """
-
-    final_data_image: List[Dict] = []
-    for key, values in image_metadata.items():
-        for _, image_values in values.items():
-            data: Dict = {}
-            data["file_name"] = filename
-            data["page_num"] = int(key) + 1
-            data["img_num"] = int(image_values["img_num"])
-            data["img_path"] = image_values["img_path"]
-            data["img_desc"] = image_values["img_desc"]
-            # data["mm_embedding_from_text_desc_and_img"] = image_values[
-            #     "mm_embedding_from_text_desc_and_img"
-            # ]
-            data["mm_embedding_from_img_only"] = image_values[
-                "mm_embedding_from_img_only"
-            ]
-            data["text_embedding_from_image_description"] = image_values[
-                "text_embedding_from_image_description"
-            ]
-            final_data_image.append(data)
-
-    return_df = pd.DataFrame(final_data_image).dropna()
+    if os.path.exists(f'{filepath}.imgdf'):
+        return_df = pd.read_pickle(f'{filepath}.imgdf')
+    else:
+        assert image_metadata is not None
+        final_data_image: List[Dict] = []
+        for key, values in image_metadata.items():
+            for _, image_values in values.items():
+                data: Dict = dict(
+                    file_name=filepath.split("/")[-1],
+                    page_num=int(key) + 1,
+                    img_num=int(image_values["img_num"]),
+                    img_path=image_values["img_path"],
+                    img_desc=image_values["img_desc"],
+                    mm_embedding_from_img_only=image_values["mm_embedding_from_img_only"],
+                    text_embedding_from_image_description=image_values["text_embedding_from_image_description"]
+                )
+                final_data_image.append(data)
+        return_df = pd.DataFrame(final_data_image).dropna()
+        pd.to_pickle(f'{filepath}.imgdf')
     return_df = return_df.reset_index(drop=True)
     return return_df
 
 
+# noinspection PyDefaultArgument
 def get_document_metadata(
         generative_multimodal_model,
         pdf_folder_path: str,
@@ -483,108 +477,80 @@ def get_document_metadata(
     This function takes a PDF path, an image save directory, an image description prompt, an embedding size, and a text embedding text limit as input.
 
     Args:
-        pdf_path: The path to the PDF document.
+        pdf_folder_path: The path to the PDF document.
         image_save_dir: The directory where extracted images should be saved.
         image_description_prompt: A prompt to guide Gemini for generating image descriptions.
         embedding_size: The dimensionality of the embedding vectors.
-        text_emb_text_limit: The maximum number of tokens for text embedding.
 
     Returns:
         A tuple containing two DataFrames:
             * One DataFrame containing the extracted text metadata for each page of the PDF, including the page text, chunked text dictionaries, and chunk embedding dictionaries.
             * Another DataFrame containing the extracted image metadata for each image in the PDF, including the image path, image description, image embeddings (with and without context), and image description text embedding.
     """
-
     text_metadata_df_final, image_metadata_df_final = pd.DataFrame(), pd.DataFrame()
-
-    for pdf_path in glob.glob(pdf_folder_path + "/*.pdf"):
-        print(
-            "\n\n",
-            "Processing the file: ---------------------------------",
-            pdf_path,
-            "\n\n",
-        )
-
+    for pdf_path in sorted(glob.glob(pdf_folder_path + "/*.pdf")):
+        print("\n\n", "Processing the file: ---------------------------------", pdf_path, "\n\n")
         doc, num_pages = get_pdf_doc_object(pdf_path)
 
         file_name = pdf_path.split("/")[-1]
-
-        text_metadata: Dict[Union[int, str], Dict] = {}
-        image_metadata: Dict[Union[int, str], Dict] = {}
-
-        for page_num in range(num_pages):
-            print(f"Processing page: {page_num + 1}")
-
-            page = doc[page_num]
-
-            text = page.get_text()
-            (
-                text,
-                page_text_embeddings_dict,
-                chunked_text_dict,
-                chunk_embeddings_dict,
-            ) = get_chunk_text_metadata(page, embedding_size=embedding_size)
-
-            text_metadata[page_num] = {
-                "text": text,
-                "page_text_embeddings": page_text_embeddings_dict,
-                "chunked_text_dict": chunked_text_dict,
-                "chunk_embeddings_dict": chunk_embeddings_dict,
-            }
-
-            images = page.get_images()
-            image_metadata[page_num] = {}
-
-            for image_no, image in enumerate(images):
-                image_number = int(image_no + 1)
-                image_metadata[page_num][image_number] = {}
-
-                image_for_gemini, image_name = get_image_for_gemini(
-                    doc, image, image_no, image_save_dir, file_name, page_num
-                )
-
-                print(
-                    f"Extracting image from page: {page_num + 1}, saved as: {image_name}"
-                )
-
-                response = get_gemini_response(
-                    generative_multimodal_model,
-                    model_input=[image_description_prompt, image_for_gemini],
-                    generation_config=generation_config,
-                    safety_settings=safety_settings,
-                    stream=True,
-                )
-
-                image_embedding = get_image_embedding_from_multimodal_embedding_model(
-                    image_uri=image_name,
-                    embedding_size=embedding_size,
-                )
-
-                image_description_text_embedding = (
-                    get_text_embedding_from_text_embedding_model(text=response)
-                )
-
-                image_metadata[page_num][image_number] = {
-                    "img_num": image_number,
-                    "img_path": image_name,
-                    "img_desc": response,
-                    # "mm_embedding_from_text_desc_and_img": image_embedding_with_description,
-                    "mm_embedding_from_img_only": image_embedding,
-                    "text_embedding_from_image_description": image_description_text_embedding,
+        if os.path.exists(f'{pdf_path}.textdf') and os.path.exists(f'{pdf_path}.imgdf'):
+            text_metadata_df = get_text_metadata_df(pdf_path, None)
+            image_metadata_df = get_image_metadata_df(pdf_path, None)
+        else:
+            text_metadata: Dict[Union[int, str], Dict] = {}
+            image_metadata: Dict[Union[int, str], Dict] = {}
+            for page_num in range(num_pages):
+                print(f"Processing page: {page_num + 1}")
+                page = doc[page_num]
+                # text = page.get_text()
+                text, page_text_embeddings_dict, chunked_text_dict, chunk_embeddings_dict = \
+                    get_chunk_text_metadata(page, embedding_size=embedding_size)
+                text_metadata[page_num] = {
+                    "text": text,
+                    "page_text_embeddings": page_text_embeddings_dict,
+                    "chunked_text_dict": chunked_text_dict,
+                    "chunk_embeddings_dict": chunk_embeddings_dict,
                 }
-
+                images = page.get_images()
+                image_metadata[page_num] = {}
+                for image_no, image in enumerate(images):
+                    image_number = int(image_no + 1)
+                    image_metadata[page_num][image_number] = {}
+                    image_for_gemini, image_name = get_image_for_gemini(
+                        doc, image, image_no, image_save_dir, file_name, page_num
+                    )
+                    print(f"Extracting image from page: {page_num + 1}, saved as: {image_name}")
+                    response = get_gemini_response(
+                        generative_multimodal_model,
+                        model_input=[image_description_prompt, image_for_gemini],
+                        generation_config=generation_config,
+                        safety_settings=safety_settings,
+                        stream=True,
+                    )
+                    image_embedding = get_image_embedding_from_multimodal_embedding_model(
+                        image_uri=image_name,
+                        embedding_size=embedding_size,
+                    )
+                    image_description_text_embedding = (
+                        get_text_embedding_from_text_embedding_model(text=response)
+                    )
+                    image_metadata[page_num][image_number] = {
+                        "img_num": image_number,
+                        "img_path": image_name,
+                        "img_desc": response,
+                        # "mm_embedding_from_text_desc_and_img": image_embedding_with_description,
+                        "mm_embedding_from_img_only": image_embedding,
+                        "text_embedding_from_image_description": image_description_text_embedding,
+                    }
             # Add sleep to reduce issues with Quota error on API
             if add_sleep_after_page:
                 time.sleep(sleep_time_after_page)
-                print(
-                    "Sleeping for ",
-                    sleep_time_after_page,
-                    """ sec before processing the next page to avoid quota issues. You can disable it: "add_sleep_after_page = False"  """,
-                )
+                print("Sleeping for ", sleep_time_after_page,
+                      """ sec before processing the next page to avoid quota issues. You can disable it: "add_sleep_after_page = False"  """)
+            text_metadata_df = get_text_metadata_df(pdf_path, text_metadata)
+            image_metadata_df = get_image_metadata_df(pdf_path, image_metadata)
 
-        text_metadata_df = get_text_metadata_df(file_name, text_metadata)
-        image_metadata_df = get_image_metadata_df(file_name, image_metadata)
-
+        # Append metadata
         text_metadata_df_final = pd.concat(
             [text_metadata_df_final, text_metadata_df], axis=0
         )
@@ -595,10 +561,8 @@ def get_document_metadata(
             ],
             axis=0,
         )
-
         text_metadata_df_final = text_metadata_df_final.reset_index(drop=True)
         image_metadata_df_final = image_metadata_df_final.reset_index(drop=True)
-
     return text_metadata_df_final, image_metadata_df_final
 
 

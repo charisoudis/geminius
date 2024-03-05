@@ -35,8 +35,9 @@ Do not include any numbers that are not mentioned in the image.
             image_save_dir=str(pdfs_dir / 'images'),
             image_description_prompt=prompt_key,
             embedding_size=1408,
-            # add_sleep_after_page = True, # Uncomment this if you are running into API quota issues
-            # sleep_time_after_page = 5,
+            # Uncomment the following two lines if you are running into API quota issues
+            add_sleep_after_page=True,
+            sleep_time_after_page=5,
         )
 
     # noinspection PyMethodMayBeStatic
