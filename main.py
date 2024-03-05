@@ -27,6 +27,7 @@ def test_google_notebook():
     # call RAG with Gemini
     return gemini(query, pdfs_dir, rag_top_n=10, verbose=True)
 
+
 def kth_dd221():
     # set up prompt (can be given via input)
     # VT2021 / Subject 2
@@ -51,14 +52,16 @@ Assume all observations are independent. For each doggo, fit the number of its p
 parameters, and compute those parameters. Show your work.
     - Consider the data in the table above. Assume all observations are independent. For each doggo, fit its number of poopoos with a Poisson distribution using maximum a posteriori estimation of
 the parameters, and compute those parameters. Assume the prior distribution of the parameters is exponential with parameter gamma=3. Show your work.
-    - Consider the data in the table above. Assume all observations are independent. For each doggo, find the Bayes’ predictive posterior for the number of its poopoos. Model the number of poopoos of
+    - Consider the same data as before. Assume all observations are independent. For each doggo, find the Bayes’ predictive posterior for the number of its poopoos. Model the number of poopoos of
 each dog with a Poisson distribution and assume the prior distribution of the parameters is exponential with parameter gamma=3. For convenience, assume P (Dk) = 1. Express the Bayes’
 predictive posterior in closed-form, i.e., not as an integral. Show your work.
+    - Those were past exam questions. Please come up with possible 1-2 new questions on the related material without including data, just the question.
      """
     # set path to PDF files
     pdfs_dir = data_dir / 'kth_dd2421'
     # call RAG with Gemini
     return gemini(query, pdfs_dir, rag_top_n=10, verbose=False)
+
 
 if __name__ == '__main__':
     response = kth_dd221()
