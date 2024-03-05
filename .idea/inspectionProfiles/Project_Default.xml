@@ -1,0 +1,53 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyArgumentListInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="PyBroadExceptionInspection" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="16">
+            <item index="0" class="java.lang.String" itemvalue="scipy" />
+            <item index="1" class="java.lang.String" itemvalue="timm" />
+            <item index="2" class="java.lang.String" itemvalue="opencv_python_headless" />
+            <item index="3" class="java.lang.String" itemvalue="ipython" />
+            <item index="4" class="java.lang.String" itemvalue="mmcv_full" />
+            <item index="5" class="java.lang.String" itemvalue="torch" />
+            <item index="6" class="java.lang.String" itemvalue="numpy" />
+            <item index="7" class="java.lang.String" itemvalue="torchvision" />
+            <item index="8" class="java.lang.String" itemvalue="matplotlib" />
+            <item index="9" class="java.lang.String" itemvalue="mmsegmentation.egg" />
+            <item index="10" class="java.lang.String" itemvalue="attr" />
+            <item index="11" class="java.lang.String" itemvalue="einops" />
+            <item index="12" class="java.lang.String" itemvalue="rfconv" />
+            <item index="13" class="java.lang.String" itemvalue="opencv_python" />
+            <item index="14" class="java.lang.String" itemvalue="Pillow" />
+            <item index="15" class="java.lang.String" itemvalue="sklearn" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8NamingInspection" enabled="false" level="WEAK WARNING" enabled_by_default="false">
+      <option name="ignoredErrors">
+        <list>
+          <option value="N806" />
+          <option value="N812" />
+          <option value="N801" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyProtectedMemberInspection" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="PyTypeCheckerInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="bool.sum" />
+          <option value="int.backward" />
+          <option value="bool.float" />
+          <option value="bool.*" />
+          <option value="torch._tensor.Tensor.__getitem__" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
