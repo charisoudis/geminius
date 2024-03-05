@@ -5,10 +5,7 @@ import pandas as pd
 import vertexai
 from vertexai.generative_models import GenerationConfig, GenerativeModel
 
-from utils.misc import env_get, env_set
-
-env_set('CLOUD_ML_PROJECT_ID', 'spring-monolith-415922')
-
+from utils.misc import env_get
 from utils.rag import get_document_metadata, get_similar_text_from_query, print_text_to_text_citation, \
     get_gemini_response, get_similar_image_from_query, print_text_to_image_citation_single, Color
 

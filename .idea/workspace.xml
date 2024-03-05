@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2b27608-e49d-47db-bba7-25ec5e733c1f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/data/.gitkeep" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/geminius.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/geminius.iml" afterDir="false" />
+    <list default="true" id="d2b27608-e49d-47db-bba7-25ec5e733c1f" name="Changes" comment="final commit of Gemini-based RAG">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/misc.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/misc.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/rag.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/rag.py" afterDir="false" />
     </list>
@@ -133,12 +127,25 @@
       <updated>1709639300781</updated>
       <workItem from="1709639303548" duration="2542000" />
       <workItem from="1709644476502" duration="937000" />
-      <workItem from="1709645484882" duration="5952000" />
+      <workItem from="1709645484882" duration="6111000" />
     </task>
+    <task id="LOCAL-00001" summary="final commit of Gemini-based RAG">
+      <option name="closed" value="true" />
+      <created>1709651452191</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1709651452191</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="final commit of Gemini-based RAG" />
+    <option name="LAST_COMMIT_MESSAGE" value="final commit of Gemini-based RAG" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -163,6 +170,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/geminius$utils.coverage" NAME="utils Coverage Results" MODIFIED="1709645396451" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/geminius$main.coverage" NAME="main Coverage Results" MODIFIED="1709651182149" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/geminius$main.coverage" NAME="main Coverage Results" MODIFIED="1709651566858" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

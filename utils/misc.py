@@ -28,7 +28,7 @@ class Env(dict):
 
     def __init__(self, env_path: Optional[Path] = None):
         if env_path is None:
-            env_path = pathlib.Path(__file__).parent / '.env'
+            env_path = pathlib.Path(__file__).parent .parent / '.env'
         super().__init__(dotenv_values(env_path))
         for key, value in os.environ.items():
             if key not in self.keys():

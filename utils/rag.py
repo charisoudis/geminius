@@ -20,6 +20,10 @@ from vertexai.language_models import TextEmbeddingModel
 from vertexai.vision_models import Image as vision_model_Image
 from vertexai.vision_models import MultiModalEmbeddingModel
 
+from utils.misc import env_set, env_get
+
+env_set('CLOUD_ML_PROJECT_ID', env_get('CLOUD_ML_PROJECT_ID'))
+
 text_embedding_model = TextEmbeddingModel.from_pretrained("textembedding-gecko@latest")
 multimodal_embedding_model = MultiModalEmbeddingModel.from_pretrained(
     "multimodalembedding@001"
