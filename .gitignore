@@ -5,3 +5,5 @@ google-cloud-sdk/
 /data/*/images/*.jpeg
 /data/*/*.pdf
 /data/*/*.bak
+/data/*/*.textdf
+/data/*/*.imgdf

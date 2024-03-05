@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2b27608-e49d-47db-bba7-25ec5e733c1f" name="Changes" comment="bug fixes and code improvements">
+    <list default="true" id="d2b27608-e49d-47db-bba7-25ec5e733c1f" name="Changes" comment="improve LLM prompt">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +125,7 @@
       <updated>1709639300781</updated>
       <workItem from="1709639303548" duration="2542000" />
       <workItem from="1709644476502" duration="937000" />
-      <workItem from="1709645484882" duration="13545000" />
+      <workItem from="1709645484882" duration="14302000" />
     </task>
     <task id="LOCAL-00001" summary="final commit of Gemini-based RAG">
       <option name="closed" value="true" />
@@ -159,7 +159,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709656437096</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="improve LLM prompt">
+      <option name="closed" value="true" />
+      <created>1709668591710</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1709668591711</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -170,7 +178,8 @@
     <MESSAGE value="bug fixes in paths" />
     <MESSAGE value="add file-based cache to avoid too many queries" />
     <MESSAGE value="bug fixes and code improvements" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug fixes and code improvements" />
+    <MESSAGE value="improve LLM prompt" />
+    <option name="LAST_COMMIT_MESSAGE" value="improve LLM prompt" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
